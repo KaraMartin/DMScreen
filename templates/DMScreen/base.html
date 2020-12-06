@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,21 +25,20 @@
                 <div class="navbar-nav">
                     <a class="nav-link active" href="#">Home<span class="sr-only">(current)</span></a>
                     <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Spells</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">References</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Stuff here</a>
+                            <a class="dropdown-item" href="#">Classes</a>
+                            <a class="dropdown-item" href="#">Races</a>
+                            <a class="dropdown-item" href="#">Equipment</a>
+                            <a class="dropdown-item" href="#">Monsters</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">More stuff here</a>
+                            <a class="dropdown-item" href="#">Game Mechanics</a>
+                            <a class="dropdown-item" href="#">Rules</a>
                         </div>
                     </div>
                     <a class="nav-link" href="#">Characters</a>
-                    <a class="nav-link" href="#">Classes</a>
-                    <a class="nav-link" href="#">Races</a>
-                    <a class="nav-link" href="#">Equipment</a>
-                    <a class="nav-link" href="#">Monsters</a>
-                    <a class="nav-link" href="#">Game Mechanics</a>
-                    <a class="nav-link" href="#">Rules</a>
-                    <a class="nav-link" href="#">Game Board</a>
+                    <a class="nav-link" href="#">Roll Dice</a>
+                    <a class="nav-link" href="#">Game Session</a>
                     <form action="" class="form-inline">
                         <input type="search" class="form-control mr-sm-2" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">fa image here</button>
@@ -49,9 +49,8 @@
 
 
 
-        <div class="container">
             <div class="row">
-                <div class="col">
+                <div class="col-8">
                     {% block body %}
                     {% endblock %}
                 </div>
