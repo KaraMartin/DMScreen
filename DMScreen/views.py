@@ -25,9 +25,4 @@ def spells(request):
                 matches.append(response.json())
         return render(request, 'DMScreen/spells.html', {'spells': matches})
     else:
-        all_spells = []
-        for result in results:
-            spell_info = f'https://www.dnd5eapi.co/api/spells/{result["index"]}'
-            response = requests.get(spell_info)
-            all_spells.append(response)
-        return render(request, 'DMScreen/spells.html', {'spells': all_spells})
+        return render(request, 'DMScreen/spells.html', {'spells': results})

@@ -1,17 +1,16 @@
 {% extends 'DMScreen/base.html' %}
+{% load static %}
 {% block title %}
     Spells
 {% endblock %}
 
 {% block body %}
-    This is the spells page.
-
     <div class="row">
         <div class="col-8">
 
             <form action="{% url 'spells' %}" method="post">
                 {% csrf_token %}
-                <div class="input group mb-3">
+                <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Fireball" name="spell_name">
                     <div class="input-group-append">
                         <button class="btn btn-primary">Search</button>
@@ -19,23 +18,24 @@
                 </div>
             </form>
 
+
             <div class="accordion" id="results">
 
                 {% for spell in spells %}
-                <div class="card mb-3">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse-{{ spell.index }}">
-                                {{ spell.name }}
-                            </button>
-                        </h5>
+                    <!-- {{ spell }} -->
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse-{{ spell.index }}" id="{{ spell.index }}">
+                                    {{ spell.name }}
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapse-{{ spell.index }}" class="collapse" data-parent="#results">
+                              <div class="card-body" id="{{ spell.index }}-desc">
+                              </div>
+                        </div>
                     </div>
-                    <div id="collapse-{{ spell.index }}" class="collapse" data-parent="#results">
-                          <div class="card-body">
-                                {{ spell }}
-                          </div>
-                    </div>
-                </div>
                 {% endfor %}
 
             </div>
@@ -43,4 +43,8 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'js/DMScreen.js' %}"></script>
 {% endblock %}
