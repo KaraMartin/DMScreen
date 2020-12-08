@@ -27,9 +27,10 @@
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">References</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Classes</a>
                             <a class="dropdown-item" href="#">Races</a>
+                            <a class="dropdown-item" href="#">Classes</a>
                             <a class="dropdown-item" href="#">Equipment</a>
+                            <a class="dropdown-item" href="{% url 'spells' %}">Spells</a>
                             <a class="dropdown-item" href="#">Monsters</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Game Mechanics</a>
@@ -42,7 +43,7 @@
                 </div>
             </div>
         </nav>
-        <div class="container-fluid">
+        <div class="container">
             {% block body %}
             {% endblock %}
         </div>
