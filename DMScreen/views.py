@@ -9,3 +9,6 @@ def index(request):
 
 def spells(request):
     return render(request, 'DMScreen/spells.html')
+
+def diceRoller(request):
+    return render(request, 'DMScreen/diceRoller.html')
