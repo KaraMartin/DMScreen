@@ -1,8 +1,8 @@
 body {
+  background-color: #CCCCCC;
   padding-top: 60px;
 }
-@media (max-width: 979px) {
-  body {
-    padding-top: 0px;
-  }
+
+.card {
+  border: 3px solid;
 }
