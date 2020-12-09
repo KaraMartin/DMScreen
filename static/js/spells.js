@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
     $('button').click(function () {
-        console.log($(this).attr('id'));
         const spellIndex = $(this).attr('id');
         const baseURL = "https://www.dnd5eapi.co/api/spells/";
 
@@ -12,7 +11,6 @@ $(document).ready(function () {
                 dataType: 'json',
                 method: 'GET',
                 success: function (result) {
-                    console.log(Object.keys(result));
                     const spellName = result.name;
                     const spellDesc = result.desc;
                     let higherLevel;
@@ -49,10 +47,16 @@ $(document).ready(function () {
                     const school = result.school.name;
                     const classes = result.classes;
 
-                    console.log(spellName);
-                    let spellHTML = "            " +
+                    let spellHTML = '                            ';
+                    console.log(spellHTML);
+                    spellHTML += '<ul class="list-group list-group-flush">' +
+                        '<li class="list-group-item bg-dark border-warning">' +
+                        '<h5 class="card-title">Overview</h5>' +
                         '<div class="row"><div class="col-3">Level: ' + level + ' </div>' +
                         '<div class="col-3">Casting Time: ' + castingTime + '</div>';
+
+                    console.log(spellHTML);
+
                     if(result.hasOwnProperty('area_of_effect')) {
                         spellHTML += '<div class="col-3">Range/Area: ' + range +
                             ' (' + AoESize + 'ft ' + AoEType +  ')</div>';
@@ -60,13 +64,12 @@ $(document).ready(function () {
                     else {
                         spellHTML += '<div class="col-3">Range: ' + range + '</div>'
                     }
-                    spellHTML += '<div class="col-3">Components: ' + components;
 
+                    spellHTML += '<div class="col-3">Components: ' + components;
                     if(components.includes("M")) {
                         spellHTML += "*";
                     }
-
-                    spellHTML += '</div></div';
+                    spellHTML += '</div></div>';
 
                     spellHTML += '<div class="row"><div class="col-3">Duration: ' + duration + '</div>' +
                         '<div class="col-3">School: ' + school + '</div>';
@@ -77,11 +80,15 @@ $(document).ready(function () {
                         spellHTML += '<div class="col-3">Damage: ' + damageAmount + ' (' + damageType + ')</div>';
                     }
 
-                    spellHTML +=  '</div>';
+                    spellHTML +=  '</div></li><li class="list-group-item bg-dark border-warning">' +
+                        '<h5 class="card-title">Description</h5>';
+
                     let i;
                     for(i = 0; i < result.desc.length; i++) {
-                        spellHTML += '<div class="row"><div class="col-12">' + spellDesc[i] + '</div></div>';
+                        spellHTML += '<p class="card-text">' + spellDesc[i] + '</p>';
                     }
+                    spellHTML += '</li><li class="list-group-item bg-dark border-warning">';
+
                     if (result.hasOwnProperty('higher_level')) {
                         spellHTML += '<div class="row"><div class="col-12">' +
                             '<span class="font-weight-bold"> At higher levels: </span>' + higherLevel + '</div></div>';
@@ -90,6 +97,7 @@ $(document).ready(function () {
                     if (components.includes("M")) {
                         spellHTML += '<div class="row"><div class="col-12 font-italic"> * - ( ' + material + ')</div></div>';
                     }
+                    spellHTML += '</li></ul>';
 
                     $('#' + spellIndex + "-desc").html( spellHTML );
                 }

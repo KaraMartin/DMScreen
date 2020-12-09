@@ -83,3 +83,24 @@ def classes(request):
 
     else:
         return render(request, 'DMScreen/classes.html', {'count': count, 'classes': results})
+
+
+def monsters(request):
+    index_of_monsters = f'https://www.dnd5eapi.co/api/monsters/'
+    response = requests.get(index_of_monsters)
+    data = response.json()
+    count = data['count']
+    results = data['results']
+
+    if request.method == 'POST':
+        search_term = request.POST.get('monster_name').lower()
+        matches = []
+        for result in results:
+            if search_term in result["name"].lower():
+                monster_info = f'https://www.dnd5eapi.co/api/monsters/{result["index"]}'
+                response = requests.get(monster_info)
+                matches.append(response.json())
+        return render(request, 'DMScreen/monsters.html', {'monsters': matches})
+
+    else:
+        return render(request, 'DMScreen/monsters.html', {'monsters': results})
