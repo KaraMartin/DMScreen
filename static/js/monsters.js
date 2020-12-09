@@ -48,7 +48,7 @@ $(document).ready(function () {
                     let monsterHTML = '                              ' +
                         // Row 1 Basic info
                         '<ul class="list-group list-group-flush"><li class="list-group-item bg-dark border-warning">' +
-                        '   <h5 class="card-title">Overview</h5>' +
+                        '   <h5 class="card-title ref-items">Overview</h5>' +
                         '   <div class="row"><div class="col-4">' +
                         '   <p class="card-text">' + size +' '+ type + ', '  +  alignment  + '</p>                      ' +
                         '   <p class="card-text"><span class="font-weight-bold">Armor Class</span> &nbsp' + ac + '</p>  ' +
@@ -87,13 +87,13 @@ $(document).ready(function () {
                             '<p class="card-text"><span class="font-weight-bold">Languages: </span>' + languages + '</p></div></div></li>';
 
                         // Row 2 traits
-                        monsterHTML += '<li class="list-group-item bg-dark border-warning"><h5 class="card-title">Special Abilities</h5></li>';
+                        monsterHTML += '<li class="list-group-item bg-dark border-warning"><h5 class="card-title ref-items">Special Abilities</h5></li>';
 
                         // Row 3 Actions
-                        monsterHTML += '<li class="list-group-item bg-dark border-warning"><h5 class="card-title">Actions</h5></li>';
+                        monsterHTML += '<li class="list-group-item bg-dark border-warning"><h5 class="card-title ref-items">Actions</h5></li>';
 
                         // Row 4 Legendary Actions
-                        monsterHTML += '<li class="list-group-item bg-dark border-warning"><h5 class="card-title">Legendary Actions</h5></li>';
+                        monsterHTML += '<li class="list-group-item bg-dark border-warning"><h5 class="card-title ref-items">Legendary Actions</h5></li>';
 
                     monsterHTML += '</ul>';
 

@@ -11,7 +11,7 @@
             <form action="{% url 'monsters' %}" method="post">
                 {% csrf_token %}
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Type a monster name, like Dragon" name="monster_name">
+                    <input type="text" class="form-control bg-dark text-light" placeholder="Type a monster name, like Dragon" name="monster_name">
                     <div class="input-group-append">
                         <button class="btn btn-info">Search</button>
                     </div>
