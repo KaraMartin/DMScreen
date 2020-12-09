@@ -9,7 +9,7 @@
     <!-- Bootstrap/CSS -->
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' integrity='sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z' crossorigin='anonymous'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-    <link rel="stylesheet" href="/static/css/DMScreen.css">
+    <link rel="stylesheet" href="{% static 'css/DMScreen.css' %}">
     <title>
         {% block title %}
         {% endblock %}
@@ -27,8 +27,8 @@
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">References</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Races</a>
-                            <a class="dropdown-item" href="#">Classes</a>
+                            <a class="dropdown-item" href="{% url 'races' %}">Races</a>
+                            <a class="dropdown-item" href="{% url 'classes' %}">Classes</a>
                             <a class="dropdown-item" href="#">Equipment</a>
                             <a class="dropdown-item" href="{% url 'spells' %}">Spells</a>
                             <a class="dropdown-item" href="#">Monsters</a>

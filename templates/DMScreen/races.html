@@ -1,0 +1,59 @@
+{% extends 'DMScreen/base.html' %}
+{% load static %}
+{% block title %}
+    Races
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <script> console.log("{{ races.0 }}") </script>
+            {# Race selected #}
+            {% if count == 1 %}
+                <div class="mt-5" id="raceInfo"></div>
+            {% endif %}
+
+            {# No Race selected yet #}
+            {# use card decks? #}
+            {% if count > 1 %}
+                <div class="card-deck">
+                    <div class="card-columns">
+                        {% for race in races %}
+
+                            <div class="card mx-auto text-white bg-dark border-info">
+                                <h3 class="card-header text-center border-warning">{{ race.name }}</h3>
+                                <div class="card-body mb-3">
+                                    <p class="card-text font-italic"><small> {{ race.alignment }} </small></p>
+                                    <p class="card-text"><small>
+                                        {%  for ab in race.ability_bonuses %}+{{ ab.bonus }} {{ ab.ability_score.name }} {% endfor %}
+                                        {% if race.index == 'half-elf'%} +1 ANY{% endif %}
+                                    </small></p>
+                                    <p class="card-text">
+                                        <ul>
+                                        {%  for t in race.traits %}
+                                            <li>{{ t.name }}</li>
+                                        {% endfor %}
+                                        </ul>
+                                    </p>
+                                    <form action="{% url 'races' %}  %}" method="post">
+                                        {% csrf_token %}
+                                        <div class="input-group-btn d-flex justify-content-center">
+                                            <input type="hidden" class="form-control" name="race_selection" value="{{ race.index }}">
+                                            <button class="btn btn-info" type="button" name="race_selection" value="{{ race.index }}">Read more</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'js/races.js' %}"></script>
+{% endblock %}

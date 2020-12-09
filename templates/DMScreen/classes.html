@@ -1,0 +1,49 @@
+{% extends 'DMScreen/base.html' %}
+{% load static %}
+{% block title %}
+    Classes
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <script>console.log("{{ count }}")</script>
+            <script>console.log("{{ classes }}")</script>
+            {# Class selected #}
+            {% if count == 1 %}
+                <div class="mt-5" id="classInfo"></div>
+            {% endif %}
+
+            {# No Class selected yet #}
+            {# use card decks? #}
+            {% if count > 1 %}
+                <div class="card-deck">
+                    <div class="card-columns">
+                        {% for class in classes %}
+                            <div class="card mx-auto text-white bg-dark border-info">
+                                <h3 class="card-header text-center border-warning">{{ class.name }}</h3>
+                                <div class="card-body mb-3">
+                                    <p class="card-text font-italic"><small> {{ class.desc }} </small></p>
+
+                                    <form action="{% url 'classes' %}  %}" method="post">
+                                        {% csrf_token %}
+                                        <div class="input-group d-flex justify-content-center">
+                                            <input type="hidden" class="form-control" name="class_selection" value="{{ class.index }}">
+                                            <button class="btn btn-info" type="button">Read more</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'js/races.js' %}"></script>
+{% endblock %}
