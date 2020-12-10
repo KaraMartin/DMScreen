@@ -1,8 +1,18 @@
 {% extends 'DMScreen/base.html' %}
+{% load static %}
 {% block title %}
     Dice Roller
 {% endblock %}
 
 {% block body %}
-    This is the dice roller page.
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-info" onclick="newDie()"> + </button>
+            <div id="dice"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'js/diceRoller.js' %}"></script>
 {% endblock %}
