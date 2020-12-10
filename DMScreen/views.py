@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 import requests
 
 
@@ -72,7 +71,7 @@ def classes(request):
                     "rogue": "A scoundrel who uses stealth and trickery to overcome obstacles and enemies.",
                     "sorcerer": "A spellcaster who draws on inherent magic from a gift or bloodline.",
                     "warlock": "A wielder of magic that is derived from a bargain with an extraplanar entity.",
-                    "wizard": "A scholarly magic-user capable of manipulating the structures of reality."};
+                    "wizard": "A scholarly magic-user capable of manipulating the structures of reality."}
 
     for result in results:
         result["desc"] = descriptions[result["index"]]
