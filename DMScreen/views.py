@@ -82,6 +82,7 @@ def classes(request):
         class_info = f'https://www.dnd5eapi.co/api/classes/{class_selection}'
         response = requests.get(class_info).json()
         print(response)
+        response["desc"] = descriptions[response["index"]]
         return render(request, 'DMScreen/classes.html', {'count': 1, 'classes': response})
 
     else:
