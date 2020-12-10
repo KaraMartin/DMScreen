@@ -47,7 +47,7 @@ $(document).ready(function () {
                         // Row 1 Basic info
                         '<ul class="list-group list-group-flush"><li class="list-group-item bg-dark border-warning">' +
                         '   <h5 class="card-title ref-items text-warning">Overview</h5>' +
-                        '   <div class="row"><div class="col-4">' +
+                        '   <div class="row"><div class="col-md-4 col-12">' +
                         '   <p class="card-text">' + size +' '+ type + ', '  +  alignment  + '</p>                      ' +
                         '   <p class="card-text"><span class="font-weight-bold text-info">Armor Class</span> &nbsp' + ac + '</p>  ' +
                         '   <p class="card-text"><span class="font-weight-bold text-info">Hit Points</span> &nbsp' + hp + ' (' + hd + ')</p>' +
@@ -67,20 +67,20 @@ $(document).ready(function () {
                             }
                         }
 
-                        monsterHTML += '</div><div class="col-2"><p class="card-text"><span class="font-weight-bold text-info">STR </span> &nbsp' + str + '</p>' +
+                        monsterHTML += '</div><div class="col-4 col-md-2"><p class="card-text"><span class="font-weight-bold text-info">STR </span> &nbsp' + str + '</p>' +
                         '   <p class="card-text"><span class="font-weight-bold text-info">DEX </span> &nbsp' + dex + '</p>' +
                         '   <p class="card-text"><span class="font-weight-bold text-info">CON </span> &nbsp' + con + '</p>' +
                         '   <p class="card-text"><span class="font-weight-bold text-info">INT </span> &nbsp' + int + '</p>' +
                         '   <p class="card-text"><span class="font-weight-bold text-info">WIS </span> &nbsp' + wis + '</p>' +
                         '   <p class="card-text"><span class="font-weight-bold text-info">CHA </span> &nbsp' + cha + '</p></div>' +
 
-                        '   <div class="col-3"><p class="card-text"><span class="font-weight-bold text-info">Proficiencies</span></p>';
+                        '   <div class="col-md-3 col-8"><p class="card-text"><span class="font-weight-bold text-info">Proficiencies</span></p>';
                         for(let i=0; i < proficiencies.length; i++) {
                             monsterHTML += '   <p class="card-text">' +
                                 proficiencies[i]["proficiency"]["name"] + ' +' + proficiencies[i]["value"] + '</p>';
                         }
 
-                        monsterHTML += '</div><div class="col-3"><p class="card-text"><span class="font-weight-bold text-info">Challenge Rating </span> ' + cr + '</p>' +
+                        monsterHTML += '</div><div class="col-12 col-md-3"><p class="card-text"><span class="font-weight-bold text-info">Challenge Rating </span> ' + cr + '</p>' +
                             '<p class="card-text"><span class="font-weight-bold text-info">XP </span> ' + xp + '</p>' +
                             '<p class="card-text"><span class="font-weight-bold text-info">Languages: </span>' + languages + '</p></div></div></li>';
 

@@ -21,7 +21,7 @@
                     </li>
                     <div class="card-body" id="{{ classes.index }}-desc">
                         <div class="row">
-                            <div class="col-7">
+                            <div class="col-12 col-xl-7">
                                 <li class="list-group-item bg-dark border-warning">
                                     <p class="card-text font-italic">{{ classes.desc }}</p>
                                     <h3 class="card-title ref-items font-weight-bold text-warning">Class Features</h3>
@@ -62,8 +62,7 @@
                                     {% endif %}
                                 </li>
                             </div>
-
-                            <div class="col-5 border-warning">
+                            <div class="col-12 col-xl-5 border-warning d-flex justify-content-center">
                                 <img src="{% static 'images/classes/' %}{{ classes.index }}.png" alt="{{ classes.name }}">
                             </div>
                         </div>

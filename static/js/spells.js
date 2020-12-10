@@ -52,32 +52,32 @@ $(document).ready(function () {
                     spellHTML += '<ul class="list-group list-group-flush">' +
                         '<li class="list-group-item bg-dark border-warning">' +
                         '<h5 class="card-title text-warning">Overview</h5>' +
-                        '<div class="row"><div class="col-3"><span class="font-weight-bold text-info">Level </span>' + level + ' </div>' +
-                        '<div class="col-3"><span class="font-weight-bold text-info">Casting Time</span> ' + castingTime + '</div>';
+                        '<div class="row"><div class="col-12 col-md-6 col-lg-3"><span class="font-weight-bold text-info">Level </span>' + level + ' </div>' +
+                        '<div class="col-12 col-md-6 col-lg-3"><span class="font-weight-bold text-info">Casting Time</span> ' + castingTime + '</div>';
 
                     console.log(spellHTML);
 
                     if(result.hasOwnProperty('area_of_effect')) {
-                        spellHTML += '<div class="col-3"><span class="font-weight-bold text-info">Range/Area</span> ' + range +
+                        spellHTML += '<div class="col-12 col-md-6 col-lg-3"><span class="font-weight-bold text-info">Range/Area</span> ' + range +
                             ' (' + AoESize + 'ft ' + AoEType +  ')</div>';
                     }
                     else {
-                        spellHTML += '<div class="col-3"><span class="font-weight-bold text-info">Range</span> ' + range + '</div>'
+                        spellHTML += '<div class="col-12 col-md-6 col-lg-3"><span class="font-weight-bold text-info">Range</span> ' + range + '</div>'
                     }
 
-                    spellHTML += '<div class="col-3"><span class="font-weight-bold text-info">Components</span> ' + components;
+                    spellHTML += '<div class="col-12 col-md-6 col-lg-3"><span class="font-weight-bold text-info">Components</span> ' + components;
                     if(components.includes("M")) {
                         spellHTML += "*";
                     }
                     spellHTML += '</div></div>';
 
-                    spellHTML += '<div class="row"><div class="col-3"><span class="font-weight-bold text-info">Duration</span> ' + duration + '</div>' +
-                        '<div class="col-3"><span class="font-weight-bold text-info">School</span> ' + school + '</div>';
+                    spellHTML += '<div class="row"><div class="col-12 col-md-6 col-lg-3"><span class="font-weight-bold text-info">Duration</span> ' + duration + '</div>' +
+                        '<div class="col-12 col-md-6 col-lg-3"><span class="font-weight-bold text-info">School</span> ' + school + '</div>';
                     if (result.hasOwnProperty('dc')) {
-                        spellHTML += '<div class="col-3"><span class="font-weight-bold text-info">Attack/Save</span> ' + dc + ' (' + dcSuccess + ')' + '</div>'
+                        spellHTML += '<div class="col-12 col-md-6 col-lg-3"><span class="font-weight-bold text-info">Attack/Save</span> ' + dc + ' (' + dcSuccess + ')' + '</div>'
                     }
                     if (result.hasOwnProperty('damage')) {
-                        spellHTML += '<div class="col-3"><span class="font-weight-bold text-info">Damage</span> ' + damageAmount + ' (' + damageType + ')</div>';
+                        spellHTML += '<div class="col-12 col-md-6 col-lg-3"><span class="font-weight-bold text-info">Damage</span> ' + damageAmount + ' (' + damageType + ')</div>';
                     }
 
                     spellHTML +=  '</div></li><li class="list-group-item bg-dark border-warning">' +
