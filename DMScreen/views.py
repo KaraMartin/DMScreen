@@ -7,6 +7,8 @@ import requests
 def index(request):
     return render(request, 'DMScreen/index.html')
 
+def diceRoller(request):
+  return render(request, 'DMScreen/diceRoller.html')
 
 def spells(request):
     index_of_spells = f'https://www.dnd5eapi.co/api/spells/'
