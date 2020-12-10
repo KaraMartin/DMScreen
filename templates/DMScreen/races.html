@@ -5,55 +5,123 @@
 {% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-12">
-            <script> console.log("{{ races.0 }}") </script>
-            {# Race selected #}
-            {% if count == 1 %}
-                <div class="mt-5" id="raceInfo"></div>
-            {% endif %}
+    {# Race selected #}
+    {% if count == 1 %}
+        <div class="card text-white bg-dark border-info">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-dark border-warning">
+                    <div class="border-warning">
+                        <h2 class="mb-0 text-center text-warning border-warning">
+                            {{ races.name }}
+                        </h2>
+                    </div>
+                </li>
+                <div class="card-body" id="{{ races.index }}-desc">
+                    <div class="row">
+                        <div class="col-7">
+                            <li class="list-group-item bg-dark border-warning">
 
-            {# No Race selected yet #}
-            {# use card decks? #}
-            {% if count > 1 %}
-                <div class="card-deck">
-                    <div class="card-columns">
-                        {% for race in races %}
-
-                            <div class="card mx-auto text-white bg-dark border-info">
-                                <h3 class="card-header text-center border-warning">{{ race.name }}</h3>
-                                <div class="card-body mb-3">
-                                    <p class="card-text font-italic"><small> {{ race.alignment }} </small></p>
-                                    <p class="card-text"><small>
-                                        {%  for ab in race.ability_bonuses %}+{{ ab.bonus }} {{ ab.ability_score.name }} {% endfor %}
-                                        {% if race.index == 'half-elf'%} +1 ANY{% endif %}
-                                    </small></p>
-                                    <p class="card-text">
-                                        <ul>
-                                        {%  for t in race.traits %}
-                                            <li>{{ t.name }}</li>
-                                        {% endfor %}
-                                        </ul>
-                                    </p>
-                                    <form action="{% url 'races' %}  %}" method="post">
-                                        {% csrf_token %}
-                                        <div class="input-group-btn d-flex justify-content-center">
-                                            <input type="hidden" class="form-control" name="race_selection" value="{{ race.index }}">
-                                            <button class="btn btn-info" type="button" name="race_selection" value="{{ race.index }}">Read more</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                        <h5 class="card-title ref-items text-warning">{{ races.name }} Traits</h5>
+                        <p class="card-text"><span class="font-weight-bold text-info">Ability Score Increases</span></p>
+                        {% for ab in races.ability_bonuses %}
+                            <p class="card-text"> +{{ ab.bonus }}&nbsp;{{ ab.ability_score.name }}</p>
                         {% endfor %}
+                        {% if races.index == 'half-elf' %}
+                            <p class="card-text"> +1 ANY</p>
+                        {% endif %}
+
+                        <p class="card-text"><span class="font-weight-bold text-info">Age</span></p>
+                        <p class="card-text">{{ races.age }}</p>
+
+                        <p class="card-text"><span class="font-weight-bold text-info">Alignment</span></p>
+                        <p class="card-text">{{ races.alignment }}</p>
+
+                        <p class="card-text"><span class="font-weight-bold text-info">Size</span></p>
+                        <p class="card-text">{{ races.size_description }}</p>
+
+                        <p class="card-text"><span class="font-weight-bold text-info">Speed</span></p>
+                        <p class="card-text">{{ races.speed }}</p>
+
+                        {% for trait in races.traits %}
+                            <p class="card-text"><span class="font-weight-bold text-info">{{ trait.name }}</span></p>
+                        {% endfor %}
+                        <p class="card-text"><span class="font-weight-bold text-info">Languages</span></p>
+                        <p class="card-text">{{ races.language_desc }}</p>
+
+                        {% if races.language_options %}
+                            <p class="card-text"><span class="font-weight-bold text-info">Choose {{ races.language_options.choose }} from </span></p>
+                            <p class="card-text">
+                            {% for lo in races.language_options.from %}
+                                {{ lo.name }}
+                            {% endfor %}
+                            </p>
+                        {% endif %}
+
+                        {% if races.subraces %}
+                        <p class="card-text"><span class="font-weight-bold text-info">Subraces</span></p>
+                            {% for sr in races.subraces %}
+                            <p class="card-text">{{ sr.name }}</p>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if races.starting_proficiencies %}
+                            <p class="card-text"><span class="font-weight-bold text-info">Proficiencies</span></p>
+                            {% for sp in races.starting_proficiencies %}
+                                <p class="card-text">{{ sp.name }}</p>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if races.starting_proficiency_options %}
+                            <p class="card-text"><span class="font-weight-bold text-info">Choose {{ races.starting_proficiency_options.choose }} from </span></p>
+                            {% for spo in races.starting_proficiency_options.from %}
+                                <p class="card-text">{{ spo.name }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </li>
+                        </div>
+                        <div class="col-5 border-warning">
+                            <img src="{% static 'images/races/' %}{{ races.index }}.png" alt="{{ races.name }}">
+                        </div>
                     </div>
                 </div>
-            {% endif %}
-
+            </ul>
         </div>
-    </div>
+    {% endif %}
 
-{% endblock %}
+    {# No Race selected yet #}
+    {# use card decks? #}
+    {% if count > 1 %}
+        <div class="card-deck">
+            <div class="card-columns">
+                {% for race in races %}
 
-{% block script %}
-    <script src="{% static 'js/races.js' %}"></script>
+                    <div class="card mx-auto text-white bg-dark border-info">
+                        <h3 class="card-header text-center border-warning text-warning">{{ race.name }}</h3>
+                        <div class="card-body mb-3">
+                            <p class="card-text font-italic"><small> {{ race.alignment }} </small></p>
+                            <p class="card-text"><small>
+                                {%  for ab in race.ability_bonuses %}+{{ ab.bonus }} {{ ab.ability_score.name }} {% endfor %}
+                                {% if race.index == 'half-elf'%} +1 ANY{% endif %}
+                            </small></p>
+                            <p class="card-text">
+                                <ul>
+                                {%  for t in race.traits %}
+                                    <li>{{ t.name }}</li>
+                                {% endfor %}
+                                </ul>
+                            </p>
+                            <form action="{% url 'races' %}" method="post">
+                                {% csrf_token %}
+                                <div class="input-group-btn d-flex justify-content-center">
+                                    <input type="hidden" class="form-control" name="race_selection" value="{{ race.index }}">
+                                    <button class="btn btn-info" type="submit" name="race_selection" value="{{ race.index }}">Read more</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
 {% endblock %}

@@ -7,11 +7,85 @@
 {% block body %}
     <div class="row">
         <div class="col-12">
-            <script>console.log("{{ count }}")</script>
-            <script>console.log("{{ classes }}")</script>
             {# Class selected #}
             {% if count == 1 %}
-                <div class="mt-5" id="classInfo"></div>
+            <script>console.log("{{ classes }}")</script>
+            <div class="card text-white bg-dark border-info">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item bg-dark border-warning">
+                        <div class="border-warning">
+                            <h2 class="mb-0 text-center text-warning border-warning">
+                                {{ classes.name }}
+                            </h2>
+                        </div>
+                    </li>
+                    <div class="card-body" id="{{ classes.index }}-desc">
+                        <div class="row">
+                            <div class="col-7">
+                                <li class="list-group-item bg-dark border-warning">
+
+                                    <h3 class="card-title ref-items font-weight-bold text-warning">Class Features</h3>
+                                    <p class="card-text">As a {{ classes.name }}, you gain the following class features. </p>
+                                    <h5 class="card-text"><span class="font-weight-bold text-warning">Hit Points</span></h5>
+                                    <p class="card-text"><span class="font-weight-bold text-info">Hit Dice: </span> 1d{{ classes.hit_die }} per {{ classes.name }} level</p>
+                                    <p class="card-text"><span class="font-weight-bold text-info">Hit Points at 1st Level: </span> {{ classes.hit_die }} + your Constitution modifier</p>
+                                    <p class="card-text"><span class="font-weight-bold text-info">Hit Points at Higher Levels: </span> 1d{{ classes.hit_die }}  + your Constitution modifier per {{ classes.name }} level past your 1st</p>
+
+                                    <h5 class="card-text"><span class="font-weight-bold text-warning">Proficiencies</span></h5>
+                                    {% for p in classes.proficiencies %}
+                                        <p class="card-text">{{ p.name }}</p>
+                                    {% endfor %}
+
+                                {% if classes.proficiency_choices %}
+                                    {% for bucket in classes.proficiency_choices %}
+                                        <p class="card-text"><span class="font-weight-bold text-info">Choose {{ bucket.choose }} from </span></p>
+                                        {% for pc in bucket.from %}
+                                            <p class="card-text">{{ pc.name }}</p>
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endif %}
+
+                                    <h5 class="card-text"><span class="font-weight-bold text-warning">Saving Throws</span></h5>
+                                    <p class="card-text">
+                                    {% for st in classes.saving_throws %}
+                                         {{ st.name }} &nbsp;
+                                    {% endfor %}
+                                    </p>
+
+
+
+                                    {% if classes.subclasses %}
+                                    <h5 class="card-text"><span class="font-weight-bold text-warning">Subclasses</span></h5>
+                                        {% for sc in classes.subclasses %}
+                                            <p class="card-text">{{ sc.name }}</p>
+                                        {% endfor %}
+                                    {% endif %}
+                                </li>
+                            </div>
+
+                            <div class="col-5 border-warning">
+                                <img src="{% static 'images/classes/' %}{{ classes.index }}.png" alt="{{ classes.name }}">
+                            </div>
+                        </div>
+
+                        {% if classes.spellcasting %}
+                        <div class="row">
+                            <div class="col-12">
+                                <li class="list-group-item bg-dark">
+                                <h3 class="card-text"><span class="font-weight-bold text-warning">Spellcasting</span></h3>
+                                    {% for s in classes.spellcasting.info %}
+                                        <h5 class="card-text"><span class="font-weight-bold text-info">{{ s.name }}</span></h5>
+                                        {% for desc in s.desc %}
+                                            <p class="card-text">{{ desc }}</p>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </li>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </ul>
+            </div>
             {% endif %}
 
             {# No Class selected yet #}
@@ -21,15 +95,15 @@
                     <div class="card-columns">
                         {% for class in classes %}
                             <div class="card mx-auto text-white bg-dark border-info">
-                                <h3 class="card-header text-center border-warning">{{ class.name }}</h3>
+                                <h3 class="card-header text-center border-warning text-warning">{{ class.name }}</h3>
                                 <div class="card-body mb-3">
                                     <p class="card-text font-italic"><small> {{ class.desc }} </small></p>
 
-                                    <form action="{% url 'classes' %}  %}" method="post">
+                                    <form action="{% url 'classes' %}" method="post">
                                         {% csrf_token %}
-                                        <div class="input-group d-flex justify-content-center">
+                                        <div class="input-group-btn d-flex justify-content-center">
                                             <input type="hidden" class="form-control" name="class_selection" value="{{ class.index }}">
-                                            <button class="btn btn-info" type="button">Read more</button>
+                                            <button class="btn btn-info" type="submit" name="class_selection" value="{{ class.index }}">Read more</button>
                                         </div>
                                     </form>
                                 </div>
@@ -42,8 +116,4 @@
         </div>
     </div>
 
-{% endblock %}
-
-{% block script %}
-    <script src="{% static 'js/classes.js' %}"></script>
 {% endblock %}

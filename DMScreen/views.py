@@ -46,7 +46,8 @@ def races(request):
         race_selection = request.POST.get('race_selection')
         race_info = f'https://www.dnd5eapi.co/api/races/{race_selection}'
         response = requests.get(race_info).json()
-        return render(request, 'DMScreen/races.html', {'count': 1, 'races': [response]})
+        return render(request, 'DMScreen/races.html', {'count': 1, 'races': response})
+
     else:
         return render(request, 'DMScreen/races.html', {'count': count, 'races': full_race_info})
 
@@ -57,7 +58,6 @@ def classes(request):
     data = response.json()
     count = data['count']
     results = data['results']
-    print(results)
 
     descriptions = {"barbarian": "A fierce warrior of primitive background who can enter a battle rage.",
                     "bard": "An inspiring magician whose power echoes the music of creation.",
@@ -78,8 +78,9 @@ def classes(request):
     if request.method == 'POST':
         class_selection = request.POST.get('class_selection')
         class_info = f'https://www.dnd5eapi.co/api/classes/{class_selection}'
-        response = requests.get(class_info)
-        return render(request, 'DMScreen/classes.html', {'count': 1, 'classes': response.json()})
+        response = requests.get(class_info).json()
+        print(response)
+        return render(request, 'DMScreen/classes.html', {'count': 1, 'classes': response})
 
     else:
         return render(request, 'DMScreen/classes.html', {'count': count, 'classes': results})

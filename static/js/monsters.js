@@ -39,21 +39,19 @@ $(document).ready(function () {
                     const languages = result.languages;
                     const cr = result.challenge_rating;
                     const xp = result.xp;
-                    const specialAbilities = result.special_abilities;
-                    const actions = result.actions;
-                    const legActions = result.legendary_actions;
+
 
 
                     console.log(name);
                     let monsterHTML = '                              ' +
                         // Row 1 Basic info
                         '<ul class="list-group list-group-flush"><li class="list-group-item bg-dark border-warning">' +
-                        '   <h5 class="card-title ref-items">Overview</h5>' +
+                        '   <h5 class="card-title ref-items text-warning">Overview</h5>' +
                         '   <div class="row"><div class="col-4">' +
                         '   <p class="card-text">' + size +' '+ type + ', '  +  alignment  + '</p>                      ' +
-                        '   <p class="card-text"><span class="font-weight-bold">Armor Class</span> &nbsp' + ac + '</p>  ' +
-                        '   <p class="card-text"><span class="font-weight-bold">Hit Points</span> &nbsp' + hp + ' (' + hd + ')</p>' +
-                        '   <p class="card-text"><span class="font-weight-bold">Speed</span> &nbsp' + speed["walk"];
+                        '   <p class="card-text"><span class="font-weight-bold text-info">Armor Class</span> &nbsp' + ac + '</p>  ' +
+                        '   <p class="card-text"><span class="font-weight-bold text-info">Hit Points</span> &nbsp' + hp + ' (' + hd + ')</p>' +
+                        '   <p class="card-text"><span class="font-weight-bold text-info">Speed</span> &nbsp' + speed["walk"];
 
                         if(speed["fly"]) {
                             monsterHTML += ", fly " + speed["fly"];
@@ -69,37 +67,71 @@ $(document).ready(function () {
                             }
                         }
 
-                        monsterHTML += '</div><div class="col-2"><p class="card-text"><span class="font-weight-bold">STR </span> &nbsp' + str + '</p>' +
-                        '   <p class="card-text"><span class="font-weight-bold">DEX </span> &nbsp' + dex + '</p>' +
-                        '   <p class="card-text"><span class="font-weight-bold">CON </span> &nbsp' + con + '</p>' +
-                        '   <p class="card-text"><span class="font-weight-bold">INT </span> &nbsp' + int + '</p>' +
-                        '   <p class="card-text"><span class="font-weight-bold">WIS </span> &nbsp' + wis + '</p>' +
-                        '   <p class="card-text"><span class="font-weight-bold">CHA </span> &nbsp' + cha + '</p></div>' +
+                        monsterHTML += '</div><div class="col-2"><p class="card-text"><span class="font-weight-bold text-info">STR </span> &nbsp' + str + '</p>' +
+                        '   <p class="card-text"><span class="font-weight-bold text-info">DEX </span> &nbsp' + dex + '</p>' +
+                        '   <p class="card-text"><span class="font-weight-bold text-info">CON </span> &nbsp' + con + '</p>' +
+                        '   <p class="card-text"><span class="font-weight-bold text-info">INT </span> &nbsp' + int + '</p>' +
+                        '   <p class="card-text"><span class="font-weight-bold text-info">WIS </span> &nbsp' + wis + '</p>' +
+                        '   <p class="card-text"><span class="font-weight-bold text-info">CHA </span> &nbsp' + cha + '</p></div>' +
 
-                        '   <div class="col-3"><p class="card-text"><span class="font-weight-bold">Proficiencies</span></p>';
+                        '   <div class="col-3"><p class="card-text"><span class="font-weight-bold text-info">Proficiencies</span></p>';
                         for(let i=0; i < proficiencies.length; i++) {
                             monsterHTML += '   <p class="card-text">' +
                                 proficiencies[i]["proficiency"]["name"] + ' +' + proficiencies[i]["value"] + '</p>';
                         }
 
-                        monsterHTML += '</div><div class="col-3"><p class="card-text"><span class="font-weight-bold">Challenge Rating </span> ' + cr + '</p>' +
-                            '<p class="card-text"><span class="font-weight-bold">XP </span> ' + xp + '</p>' +
-                            '<p class="card-text"><span class="font-weight-bold">Languages: </span>' + languages + '</p></div></div></li>';
+                        monsterHTML += '</div><div class="col-3"><p class="card-text"><span class="font-weight-bold text-info">Challenge Rating </span> ' + cr + '</p>' +
+                            '<p class="card-text"><span class="font-weight-bold text-info">XP </span> ' + xp + '</p>' +
+                            '<p class="card-text"><span class="font-weight-bold text-info">Languages: </span>' + languages + '</p></div></div></li>';
 
                         // Row 2 traits
-                        monsterHTML += '<li class="list-group-item bg-dark border-warning"><h5 class="card-title ref-items">Special Abilities</h5></li>';
+                        if(result.hasOwnProperty('special_abilities')) {
+                            const specialAbilities = result.special_abilities;
+                            monsterHTML += '<li class="list-group-item bg-dark border-warning"><h5 class="card-title ref-items text-warning">Special Abilities</h5>';
+
+                            for (let i = 0; i < specialAbilities.length; i++) {
+                                monsterHTML += '<p class="card-text"><span class="font-weight-bold text-info">' + specialAbilities[i]["name"] + ':</span> ' +
+                                    specialAbilities[i].desc;
+                                if (specialAbilities[i].hasOwnProperty("usage")) {
+                                    monsterHTML += '(' + specialAbilities[i]["usage"]["times"] + '&nbsp;' + specialAbilities[i]["usage"]["type"] + ')';
+                                }
+                                monsterHTML += '</p>';
+                            }
+                            monsterHTML += '</li>';
+                        }
 
                         // Row 3 Actions
-                        monsterHTML += '<li class="list-group-item bg-dark border-warning"><h5 class="card-title ref-items">Actions</h5></li>';
+                        if(result.hasOwnProperty('actions')) {
+                            const actions = result.actions;
+                            monsterHTML += '<li class="list-group-item bg-dark border-warning"><h5 class="card-title ref-items text-warning">Actions</h5>';
+                            for (let i = 0; i < actions.length; i++) {
+                                monsterHTML += '<p class="card-text"><span class="font-weight-bold text-info">' + actions[i]["name"] + ':</span> ' +
+                                    actions[i].desc;
+                                if (actions[i].hasOwnProperty("usage")) {
+                                    monsterHTML += '(' + actions[i]["usage"]["times"] + '&nbsp;' + actions[i]["usage"]["type"] + ')';
+                                }
+                                monsterHTML += '</p>';
+                            }
+                            monsterHTML += '</li>';
+                        }
 
                         // Row 4 Legendary Actions
-                        monsterHTML += '<li class="list-group-item bg-dark border-warning"><h5 class="card-title ref-items">Legendary Actions</h5></li>';
+                        if(result.hasOwnProperty('legendary_actions')) {
+                            const legActions = result.legendary_actions;
 
+                            monsterHTML += '<li class="list-group-item bg-dark border-warning"><h5 class="card-title ref-items text-warning">Legendary Actions</h5>';
+                            for (let i = 0; i < legActions.length; i++) {
+                                monsterHTML += '<p class="card-text"><span class="font-weight-bold text-info">' + legActions[i]["name"] + ':</span> ' +
+                                    legActions[i].desc;
+                            if(legActions[i].hasOwnProperty("usage")) {
+                                monsterHTML += '(' + legActions[i]["usage"]["times"] + '&nbsp;' + legActions[i]["usage"]["type"] + ')';
+                            }
+                            monsterHTML += '</p>';
+                            }
+                            monsterHTML += '</li>';
+                        }
                     monsterHTML += '</ul>';
-
                     $('#' + monsterIndex + "-desc").html( monsterHTML );
-
-
                 }
             });
         }
