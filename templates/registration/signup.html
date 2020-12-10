@@ -1,12 +1,18 @@
-{% extends 'base.html' %}
+{% extends 'DMScreen/base.html' %}
 
-{% block title %}Sign Up{% endblock %}
+{% block title %}
+    Sign Up
+{% endblock %}
 
-{% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-  </form>
+{% block body %}
+    <div class="card mx-auto text-white bg-dark border-info">
+        <h3 class="card-header text-center border-warning text-warning">Sign Up</h3>
+        <div class="card-body mb-3">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-info">Sign Up</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}

@@ -4,7 +4,21 @@
 {% endblock %}
 
 {% block body %}
-    This is the index page.
-    <a href="{% url "spells" %}">Spells</a>
 
+    <div class="card mx-auto text-white bg-dark border-info">
+        {% if user.is_authenticated %}
+            <h3 class="card-header text-center border-warning text-warning">Hello, {{ user.username }}!</h3>
+            <div class="card-body mb-3">
+                    <div class="input-group-btn d-flex justify-content-center">
+                        <input type="hidden" class="form-control">
+                        <a href="{% url 'logout' %}" class="btn btn-info" type="submit">Logout</a>
+                    </div>
+            </div>
+        {% else %}
+          <div class="card-body mb-3">
+          <p class="card-text text-warning">You are not logged in.</p>
+          <a href="{% url 'login' %}" class="text-info">Log In</a>
+          <a href="{% url 'signup' %}" class="text-info">Sign Up</a>
+        {% endif %}
+    </div>
 {% endblock %}
