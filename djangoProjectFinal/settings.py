@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'DMScreen.apps.DmscreenConfig',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = ["static"]
+
+LOGIN_REDIRECT_URL = '/dmscreen'
+LOGOUT_REDIRECT_URL = '/'

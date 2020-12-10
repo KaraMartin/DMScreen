@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
     $('button').click(function () {
-        console.log($(this).attr('id'));
         const spellIndex = $(this).attr('id');
         const baseURL = "https://www.dnd5eapi.co/api/spells/";
 
@@ -12,7 +11,6 @@ $(document).ready(function () {
                 dataType: 'json',
                 method: 'GET',
                 success: function (result) {
-                    console.log(Object.keys(result));
                     const spellName = result.name;
                     const spellDesc = result.desc;
                     let higherLevel;
@@ -49,47 +47,58 @@ $(document).ready(function () {
                     const school = result.school.name;
                     const classes = result.classes;
 
-                    console.log(spellName);
-                    let spellHTML = "            " +
-                        '<div class="row"><div class="col-3">Level: ' + level + ' </div>' +
-                        '<div class="col-3">Casting Time: ' + castingTime + '</div>';
+                    let spellHTML = '                            ';
+                    console.log(spellHTML);
+                    spellHTML += '<ul class="list-group list-group-flush">' +
+                        '<li class="list-group-item bg-dark border-warning">' +
+                        '<h5 class="card-title text-warning">Overview</h5>' +
+                        '<div class="row"><div class="col-3"><span class="font-weight-bold text-info">Level </span>' + level + ' </div>' +
+                        '<div class="col-3"><span class="font-weight-bold text-info">Casting Time</span> ' + castingTime + '</div>';
+
+                    console.log(spellHTML);
+
                     if(result.hasOwnProperty('area_of_effect')) {
-                        spellHTML += '<div class="col-3">Range/Area: ' + range +
+                        spellHTML += '<div class="col-3"><span class="font-weight-bold text-info">Range/Area</span> ' + range +
                             ' (' + AoESize + 'ft ' + AoEType +  ')</div>';
                     }
                     else {
-                        spellHTML += '<div class="col-3">Range: ' + range + '</div>'
+                        spellHTML += '<div class="col-3"><span class="font-weight-bold text-info">Range</span> ' + range + '</div>'
                     }
-                    spellHTML += '<div class="col-3">Components: ' + components;
 
+                    spellHTML += '<div class="col-3"><span class="font-weight-bold text-info">Components</span> ' + components;
                     if(components.includes("M")) {
                         spellHTML += "*";
                     }
+                    spellHTML += '</div></div>';
 
-                    spellHTML += '</div></div';
-
-                    spellHTML += '<div class="row"><div class="col-3">Duration: ' + duration + '</div>' +
-                        '<div class="col-3">School: ' + school + '</div>';
+                    spellHTML += '<div class="row"><div class="col-3"><span class="font-weight-bold text-info">Duration</span> ' + duration + '</div>' +
+                        '<div class="col-3"><span class="font-weight-bold text-info">School</span> ' + school + '</div>';
                     if (result.hasOwnProperty('dc')) {
-                        spellHTML += '<div class="col-3">Attack/Save: ' + dc + ' (' + dcSuccess + ')</div>';
+                        spellHTML += '<div class="col-3"><span class="font-weight-bold text-info">Attack/Save</span> ' + dc + ' (' + dcSuccess + ')' + '</div>'
                     }
                     if (result.hasOwnProperty('damage')) {
-                        spellHTML += '<div class="col-3">Damage: ' + damageAmount + ' (' + damageType + ')</div>';
+                        spellHTML += '<div class="col-3"><span class="font-weight-bold text-info">Damage</span> ' + damageAmount + ' (' + damageType + ')</div>';
                     }
 
-                    spellHTML +=  '</div>';
+                    spellHTML +=  '</div></li><li class="list-group-item bg-dark border-warning">' +
+                        '<h5 class="card-title text-warning">Description</h5>';
+
                     let i;
                     for(i = 0; i < result.desc.length; i++) {
-                        spellHTML += '<div class="row"><div class="col-12">' + spellDesc[i] + '</div></div>';
-                    }
-                    if (result.hasOwnProperty('higher_level')) {
-                        spellHTML += '<div class="row"><div class="col-12">' +
-                            '<span class="font-weight-bold"> At higher levels: </span>' + higherLevel + '</div></div>';
+                        spellHTML += '<p class="card-text">' + spellDesc[i] + '</p>';
                     }
 
-                    if (components.includes("M")) {
-                        spellHTML += '<div class="row"><div class="col-12 font-italic"> * - ( ' + material + ')</div></div>';
+                    if (result.hasOwnProperty('higher_level') || components.includes("M")) {
+                        spellHTML += '</li><li class="list-group-item bg-dark border-warning">';
+                        if(result.hasOwnProperty('higher_level')){
+                            spellHTML += '<div class="row"><div class="col-12">' +
+                                '<span class="font-weight-bold text-info"> At higher levels - </span>' + higherLevel + '</div></div>';
+                        }
+                        if (components.includes("M")) {
+                            spellHTML += '<div class="row"><div class="col-12 font-italic text-info"> * - ( ' + material + ')</div></div>';
+                        }
                     }
+                    spellHTML += '</li></ul>';
 
                     $('#' + spellIndex + "-desc").html( spellHTML );
                 }

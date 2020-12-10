@@ -9,7 +9,7 @@
     <!-- Bootstrap/CSS -->
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' integrity='sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z' crossorigin='anonymous'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-    <link rel="stylesheet" href="/static/css/DMScreen.css">
+    <link rel="stylesheet" href="{% static 'css/DMScreen.css' %}">
     <title>
         {% block title %}
         {% endblock %}
@@ -17,7 +17,7 @@
 </head>
     <body>
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">DM Screen</a>
+            <a class="navbar-brand" href="{% url 'index' %}">DM Screen</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -25,21 +25,18 @@
                 <div class="navbar-nav">
                     <a class="nav-link active" href="#">Home<span class="sr-only">(current)</span></a>
                     <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">References</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Races</a>
-                            <a class="dropdown-item" href="#">Classes</a>
-                            <a class="dropdown-item" href="#">Equipment</a>
-                            <a class="dropdown-item" href="{% url 'spells' %}">Spells</a>
-                            <a class="dropdown-item" href="#">Monsters</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Game Mechanics</a>
-                            <a class="dropdown-item" href="#">Rules</a>
+                        <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">References</a>
+                        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-light" href="{% url 'classes' %}">Classes</a>
+                            <a class="dropdown-item text-light" href="{% url 'monsters' %}">Monsters</a>
+                            <a class="dropdown-item text-light" href="{% url 'races' %}">Races</a>
+                            <a class="dropdown-item text-light" href="{% url 'spells' %}">Spells</a>
                         </div>
                     </div>
-                    <a class="nav-link" href="#">Characters</a>
-                    <a class="nav-link" href="#">Roll Dice</a>
-                    <a class="nav-link" href="#">Game Session</a>
+                    <a class="nav-link text-light" href="#">Characters</a>
+                    <a class="nav-link text-light" href="#">Roll Dice</a>
+                    <a class="nav-link text-light" href="#">Game Session</a>
+                    {#  <a class="nav-link" href="{% url 'logout' %}">Log Out</a> #}
                 </div>
             </div>
         </nav>
